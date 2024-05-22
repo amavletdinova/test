@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+<select id="list">
+  <option value="1">Общие скрипты</option>
+  <option value="2">Приветствие</option>
+</select>
+<div id="header"></div>
+
+</body>
+<script type="text/javascript">
+  var img = document.createElement("img");
+  img.src = "http://www.google.com/intl/en_com/images/logo_plain.png";
+  var src = document.getElementById("header");
+  src.appendChild(img);
+    function getSelectValue(e){
+  let selectedValue = e.target.value;
+  
+  switch(selectedValue) {
+    case '1':
+      frameCommunicationSend({'action': 'put', 'message': ``});
+      
+      break;
+    case '2':
+      frameCommunicationSend({'action': 'put', 'message': `hello, ${img.src}`});
+      break;
+  }
+}
+const list = document.querySelector('#list');
+
+list.addEventListener('change', function(e) {  
+  getSelectValue27(e)
+});
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+    function frameCommunicationInit()
+    {
+        if (!window.frameCommunication)
+        {
+            window.frameCommunication = {timeout: {}};
+        }
+        if(typeof window.postMessage === 'function')
+        {
+            window.addEventListener('message', function(event){
+                var data = {};
+                try { data = JSON.parse(event.data); } catch (err){}
+
+                if (data.action == 'init')
+                {
+                    frameCommunication.uniqueLoadId = data.uniqueLoadId;
+                    frameCommunication.postMessageSource = event.source;
+                    frameCommunication.postMessageOrigin = event.origin;
+                }
+            });
+        }
+    }
+    // функция отправки данных в основное окно
+    function frameCommunicationSend(data)
+    {
+        data['uniqueLoadId'] = frameCommunication.uniqueLoadId;
+        var encodedData = JSON.stringify(data);
+        if (!frameCommunication.postMessageOrigin)
+        {
+            clearTimeout(frameCommunication.timeout[encodedData]);
+            frameCommunication.timeout[encodedData] = setTimeout(function(){
+                frameCommunicationSend(data);
+            }, 10);
+            return true;
+        }
+
+        if(typeof window.postMessage === 'function')
+        {
+            if(frameCommunication.postMessageSource)
+            {
+                frameCommunication.postMessageSource.postMessage(
+                    encodedData,
+                    frameCommunication.postMessageOrigin
+                );
+            }
+        }
+    }
+    frameCommunicationInit();
+
+</script>
+</html>
