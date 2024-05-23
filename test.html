@@ -11,15 +11,12 @@
   <option value="1">Общие скрипты</option>
   <option value="2">Приветствие</option>
 </select>
-<div id="header"></div>
-<p>Test</p>
+
     
 </body>
 <script type="text/javascript">
   var img = document.createElement("img");
   img.src = "http://www.google.com/intl/en_com/images/logo_plain.png";
-  var src = document.getElementById("header");
-  src.appendChild(img);
     function getSelectValue(e){
   let selectedValue = e.target.value;
   
@@ -29,7 +26,7 @@
       
       break;
     case '2':
-      frameCommunicationSend({'action': 'put', 'message': `hello, ${img.src}`});
+      frameCommunicationSend({'action': 'put', 'message': `hello, ${img}`});
       break;
   }
 }
