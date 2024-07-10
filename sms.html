@@ -25,9 +25,9 @@
     </select>
     </p>
 
+     <button id="start">Отправить</button> 
       
-      
-      <script type="text/javascript" src="jquery.js"></script>
+      <script type="text/javascript" src="jquery.js" src="api.bitrix24.com/api/v1/"></script>
       
       <script>
       $(document).ready(function() {
@@ -52,7 +52,8 @@
   $('#messageArea').val(items.find(item => item.title === selectedTitle).message);
 });
 
-BX24.callMethod(
+document.getElementById("start").onclick = function getId() {
+	BX24.callMethod(
 	"crm.deal.fields",
 	{},
 	function(result)
@@ -63,7 +64,7 @@ BX24.callMethod(
 			console.dir(result.data());
 	}
 );
-
+}
 </script>
 </body>
 </html>
