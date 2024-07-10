@@ -52,6 +52,17 @@
   $('#messageArea').val(items.find(item => item.title === selectedTitle).message);
 });
 
+BX24.callMethod(
+	"crm.deal.fields",
+	{},
+	function(result)
+	{
+		if(result.error())
+			console.error(result.error());
+		else
+			console.dir(result.data());
+	}
+);
 
 </script>
 </body>
