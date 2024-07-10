@@ -24,7 +24,7 @@
         
     </select>
     </p>
-      <button id="sendMessage">Отправить</button>
+
       
       
       <script type="text/javascript" src="jquery.js"></script>
@@ -52,14 +52,6 @@
   $('#messageArea').val(items.find(item => item.title === selectedTitle).message);
 });
 
-    document.getElementById('sendMessage').onclick = sendMessage;
-
-    function putText(){
-
-    }
-    function sendMessage() {
-        alert('Отправлено!')
-    }
 
 </script>
 </body>
