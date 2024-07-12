@@ -1,16 +1,9 @@
 <?
-if ($_POST["send"]) {
-include_once "smsc_api.php";
+$ret = $client->get_status(array("login"=>"alex", "psw"=>"123"));
 
-$r = send_sms($_POST["phone"], $_POST["message"],
-$_POST["translit"], $_POST["time"], 0,
-$_POST["flash"], $_POST["sender"]);
-
-// $r = array(<id>, <количество sms>, <стоимость>, <баланс>) или array(<id>, -<код ошибки>)
-
-if ($r[1] > 0)
-echo "Сообщение отправлено";
+if ($ret->balanceresult->balance)
+    echo "Ошибка №".$ret->sendresult->error;
 else
-echo "Произошла ошибка № ", -$r[1];
-}
+    echo $ret->balanceresult->balance, "\n";
+
 ?>
