@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -7,24 +7,18 @@
 
 </head>
 <body>
-    <p>Шаблон СМС:
+<form method="post" action="send.php">
+
+Телефон<br/><input name="phone" value=""><br/><br/>
+Шаблон СМС:
     <select class="list-group" id="smsList">
     
     </select>
-    </p>
-    Сообщение<br><textarea name="message" rows="4" cols="40" id="messageArea"></textarea></br>
-    <p>Имя отправителя:
-    <select>
-        <option>CREDEO</option>
-        <option>DENGIPODPTS</option>
-    </select>
-    </p>
-    <p>Номер получателя:
-    <select id="tel">
-        
-    </select>
-    </p>
+Сообщение<br><textarea name="message" rows="4" cols="40" id="messageArea"></textarea></br>
+Оправитель<br/><input name="sender" value=""><br/><br/>
 
+<input type="submit" name="send" value="Отправить">
+</form>
      <button id="start">Отправить</button> 
       
       <script type="text/javascript" src="jquery.js" src="api.bitrix24.com/api/v1/"></script>
@@ -52,19 +46,6 @@
   $('#messageArea').val(items.find(item => item.title === selectedTitle).message);
 });
 
-document.getElementById("start").onclick = function getId() {
-	BX24.callMethod(
-	"crm.deal.fields",
-	{},
-	function(result)
-	{
-		if(result.error())
-			console.error(result.error());
-		else
-			console.dir(result.data());
-	}
-);
-}
 </script>
 </body>
 </html>
