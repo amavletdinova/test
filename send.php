@@ -1,9 +1,14 @@
 <?
-$ret = $client->get_status(array("login"=>"alex", "psw"=>"123"));
+$client = new SoapClient ("http://smsc.ru/sys/soap.php?wsdl");
+$ret = $client->send_sms(array("login"=>"alex", "psw"=>"123", $_POST["phone"], $_POST["message"], 0, $_POST["sender"]));
 
-if ($ret->balanceresult->balance)
+if ($ret->sendresult->error)
     echo "Ошибка №".$ret->sendresult->error;
-else
-    echo $ret->balanceresult->balance, "\n";
+else {
+    echo $ret->sendresult->id, "\n";
+    echo $ret->sendresult->balance, "\n";
+    echo $ret->sendresult->cost, "\n";
+    echo $ret->sendresult->cnt, "\n";
+}
 
 ?>
