@@ -8,8 +8,10 @@
 </head>
 <body>
 <form method="post" action="send.php">
-
-Телефон<br/><input name="phone" value=""><br/><br/>
+<select class="list-group" id="phone">
+    
+    </select>
+<br/>
 Шаблон СМС:
     <select class="list-group" id="smsList">
     
@@ -27,12 +29,52 @@
       $(document).ready(function() {
         createList();
       });
+     BX24.init(function(){
+});
+      const dealId = BX24.placement.info().id;
+      let contactId;
+BX24.callMethod(
+    "crm.deal.contact.items.get",
+    {
+        id: {dealId}
+    },
+    function (result) {
+        if (result.error()) {
+            console.error(result.error());
+        } else {
+            const data = result.data();
+            // Здесь записываем результат в переменную
+            contactId = data[0].id;
+        }
+    }
+);
       
       var items = [
         {title: "1", message: "Test1"},
         {title: "2", message: "Test2"}
       ];
-      
+      BX24.callMethod(
+    "crm.contact.list",
+    {
+        filter: { "ID": "{contactID}"},
+        select: [ "PHONE" ]
+    },
+    function (result) {
+        if (result.error()) {
+            console.error(result.error());
+        } else {
+            const data = result.data();
+            // Здесь заполняем список select html
+            for (let i = 0; i < data.length; i++) {
+                const option = document.createElement('option');
+                option.value = data[i].phone;
+                option.text = data[i].title;
+                phone.appendChild(option);
+            }
+        }
+    }
+);
+
       function createList() {
         for (let i = 0; i < items.length; i++) {
           $('#smsList').append($('<option>', {
