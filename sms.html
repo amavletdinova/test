@@ -29,7 +29,7 @@
       $(document).ready(function() {
         createList();
       });
-     BX24.init(function(){
+    /* BX24.init(function(){
 });
       const dealId = BX24.placement.info().id;
       let contactId;
@@ -47,13 +47,13 @@ BX24.callMethod(
             contactId = data[0].id;
         }
     }
-);
+);*/
       
       var items = [
         {title: "1", message: "Test1"},
         {title: "2", message: "Test2"}
       ];
-      BX24.callMethod(
+     /* BX24.callMethod(
     "crm.contact.list",
     {
         filter: { "ID": "{contactID}"},
@@ -74,7 +74,7 @@ BX24.callMethod(
         }
     }
 );
-
+*/
       function createList() {
         for (let i = 0; i < items.length; i++) {
           $('#smsList').append($('<option>', {
