@@ -1,5 +1,5 @@
 <?
-if ($_POST["send"]) {
+/*if ($_POST["send"]) {
 include_once "smsc_api.php";
 $client = new SoapClient ("http://smsc.ru/sys/soap.php?wsdl");
 $ret = $client->send_sms(array("login"=>"alex", "psw"=>"123", $_POST["phone"], $_POST["message"], 0, $_POST["sender"]));
